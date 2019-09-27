@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  * @author sebastienternisien
@@ -45,7 +47,8 @@ public class Patient {
 	@Column(name = "dateNaissance")
 	private Date dateNaissance;
 	
-	@ManyToMany(mappedBy = "listPatients", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "listPatients")
+	@JsonIgnore
 	private Set<Professionnel> listProfessionnel = new HashSet<Professionnel>();
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -56,14 +59,65 @@ public class Patient {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public int getIdPatient() {
+		return idPatient;
+	}
 
-//	public Date getDateNaissance() {
-//		return dateNaissance;
-//	}
-//
-//	public void setDateNaissance(Date dateNaissance) {
-//		this.dateNaissance = dateNaissance;
-//	}
+
+	public void setIdPatient(int idPatient) {
+		this.idPatient = idPatient;
+	}
+
+
+	public String getNom() {
+		return nom;
+	}
+
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+
+	public String getAdresseMail() {
+		return adresseMail;
+	}
+
+
+	public void setAdresseMail(String adresseMail) {
+		this.adresseMail = adresseMail;
+	}
+
+
+	public List<Adresse> getListAdresses() {
+		return listAdresses;
+	}
+
+
+	public void setListAdresses(List<Adresse> listAdresses) {
+		this.listAdresses = listAdresses;
+	}
+
+
+	public Date getDateNaissance() {
+		return dateNaissance;
+	}
+
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
+	}
 
 	public Set<Professionnel> getListProfessionnel() {
 		return listProfessionnel;

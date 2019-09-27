@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author sebastienternisien
  * @since 26/09/2019
  * 
- * Classe représentant le modéle de donnée pour la table "adresse"
+ *        Classe représentant le modéle de donnée pour la table "adresse"
  * 
  */
 @Entity
@@ -47,6 +47,30 @@ public class Adresse {
 
 	public void setIdAdresse(int idAdresse) {
 		this.idAdresse = idAdresse;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public TypeAdresse getTypeAdresse() {
+		return typeAdresse;
+	}
+
+	public void setTypeAdresse(TypeAdresse typeAdresse) {
+		this.typeAdresse = typeAdresse;
 	}
 
 }

@@ -14,12 +14,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  * @author sebastienternisien
  * @since 26/09/2019
  * 
- * Classe représentant le modéle de donnée pour la table "professionnel"
+ *        Classe représentant le modéle de donnée pour la table "professionnel"
  * 
  */
 @Entity
@@ -39,7 +41,7 @@ public class Professionnel {
 
 	@Column(name = "adresseMail")
 	private String adresseMail;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "idDomainePro")
 	private DomainePro domaineProfessionnel;
@@ -47,11 +49,44 @@ public class Professionnel {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "affiliation_patient_pro", joinColumns = { @JoinColumn(name = "idPro") }, inverseJoinColumns = {
 			@JoinColumn(name = "idPatient") })
+	@JsonIgnore
 	private Set<Patient> listPatients = new HashSet<Patient>();
 
 	public Professionnel() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getIdPro() {
+		return idPro;
+	}
+
+	public void setIdPro(int idPro) {
+		this.idPro = idPro;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresseMail() {
+		return adresseMail;
+	}
+
+	public void setAdresseMail(String adresseMail) {
+		this.adresseMail = adresseMail;
 	}
 
 	public DomainePro getDomaineProfessionnel() {
