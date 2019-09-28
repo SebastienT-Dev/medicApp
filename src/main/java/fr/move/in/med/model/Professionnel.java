@@ -1,6 +1,8 @@
 package fr.move.in.med.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,6 +54,10 @@ public class Professionnel {
 			@JoinColumn(name = "idPatient") })
 	@JsonIgnore
 	private Set<Patient> listPatients = new HashSet<Patient>();
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idPro")
+	private List<Adresse> listAdresses = new ArrayList<Adresse>();
 
 	public Professionnel() {
 		super();
@@ -103,6 +110,14 @@ public class Professionnel {
 
 	public void setListPatients(Set<Patient> listPatients) {
 		this.listPatients = listPatients;
+	}
+
+	public List<Adresse> getListAdresses() {
+		return listAdresses;
+	}
+
+	public void setListAdresses(List<Adresse> listAdresses) {
+		this.listAdresses = listAdresses;
 	}
 
 }

@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import org.dozer.MappingException;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,62 +38,106 @@ public abstract class MainDao {
 	 *         des pro
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<Object> getAllPatientOrPro(Class<?> clazz) {
-		if (clazz == null) {
+	protected List<Object> getAllPatientOrPro(Class<?> clazzRequest, Class<?> clazzResult) {
+		if (clazzRequest == null) {
 			return new ArrayList<Object>();
 		}
 
 		EntityManager em = emf.createEntityManager();
-		Query q = em.createQuery(String.format("from %s as o", clazz.getName()));
+		Query q = em.createQuery(String.format("from %s as o", clazzRequest.getName()));
 		List<Object> listResult = q.getResultList();
-		List<Object> listPatientOrPro = mapper.convertListObject(listResult, clazz);
+		List<Object> listPatientOrPro = mapper.convertListObject(listResult, clazzResult);
 
 		return listPatientOrPro;
 	}
-	
+
 	/**
 	 * 
 	 * @param patientOrPro
 	 */
 	@Transactional
-	public void createPatientOrPro(Object patientOrPro, Class<?> destinationClass) {
-		Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
-		EntityManager em = emf.createEntityManager();
-		Transaction transac = (Transaction) em.getTransaction();
-		transac.begin();
-		em.persist(patientOrProDao);
-		em.flush();
-		transac.commit();
+	public Boolean createPatientOrPro(Object patientOrPro, Class<?> destinationClass) {
+		Boolean isInsert = false;
+
+		try {
+			Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
+			EntityManager em = emf.createEntityManager();
+			Transaction transac = (Transaction) em.getTransaction();
+			transac.begin();
+			em.unwrap(Session.class).save(patientOrProDao);
+			em.flush();
+			transac.commit();
+		} catch (MappingException e) {
+			// TODO: handle exception
+		} catch (IllegalStateException e) {
+			// TODO: handle exception
+		} catch (PersistenceException e) {
+			// TODO: handle exception
+		}
+
+		isInsert = true;
+
+		return isInsert;
 	}
-	
+
 	/**
 	 * 
 	 * @param patientOrPro
 	 */
 	@Transactional
-	public void deletePatientOrPro(Object patientOrPro, Class<?> destinationClass) {
-		Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
-		EntityManager em = emf.createEntityManager();
-		Transaction transac = (Transaction) em.getTransaction();
-		transac.begin();
-		em.flush();
-		em.remove(patientOrProDao);
-		transac.commit();
-		
+	public Boolean deletePatientOrPro(Object patientOrPro, Class<?> destinationClass) {
+		Boolean isDelete = false;
+
+		try {
+			Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
+			EntityManager em = emf.createEntityManager();
+			Transaction transac = (Transaction) em.getTransaction();
+			transac.begin();
+			// TODO Gérer l'entity manager pour le fermer à chaque requete et eviter le
+			// merge pour le delete
+			em.remove(em.merge(patientOrProDao));
+			em.flush();
+			transac.commit();
+		} catch (MappingException e) {
+			// TODO: handle exception
+		} catch (IllegalStateException e) {
+			// TODO: handle exception
+		} catch (PersistenceException e) {
+			// TODO: handle exception
+		}
+
+		isDelete = true;
+
+		return isDelete;
 	}
-	
+
 	/**
 	 * 
 	 * @param patientOrPro
 	 */
 	@Transactional
-	public void updatePatientOrPro(Object patientOrPro, Class<?> destinationClass) {
-		Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
-		EntityManager em = emf.createEntityManager();
-		Transaction transac = (Transaction) em.getTransaction();
-		transac.begin();
-		em.merge(patientOrProDao);
-		em.flush();
-		transac.commit();
+	public Boolean updatePatientOrPro(Object patientOrPro, Class<?> destinationClass) {
+		Boolean isUpdate = false;
+
+		try {
+			Object patientOrProDao = mapper.convertObject(patientOrPro, destinationClass);
+			EntityManager em = emf.createEntityManager();
+			Transaction transac = (Transaction) em.getTransaction();
+			transac.begin();
+			em.merge(patientOrProDao);
+			em.flush();
+			transac.commit();
+
+		} catch (MappingException e) {
+			// TODO: handle exception
+		} catch (IllegalStateException e) {
+			// TODO: handle exception
+		} catch (PersistenceException e) {
+			// TODO: handle exception
+		}
+
+		isUpdate = true;
+
+		return isUpdate;
 	}
 }

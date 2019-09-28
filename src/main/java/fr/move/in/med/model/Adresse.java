@@ -1,5 +1,6 @@
 package fr.move.in.med.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Adresse {
 	@Column(name = "adresse")
 	private String adresse;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idTypeAdresse")
 	private TypeAdresse typeAdresse;
 

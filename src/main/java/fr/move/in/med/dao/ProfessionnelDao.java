@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.move.in.med.model.Professionnel;
+import fr.move.in.med.vo.ProfessionnelBasicDetails;
 import fr.move.in.med.vo.ProfessionnelVo;
 
 /**
@@ -26,7 +27,7 @@ public class ProfessionnelDao extends MainDao {
 	 * @return
 	 */
 	public List<Object> retreiveAllProfessionnels() {
-		return this.getAllPatientOrPro(Professionnel.class);
+		return this.getAllPatientOrPro(Professionnel.class, ProfessionnelBasicDetails.class);
 	}
 
 	/**

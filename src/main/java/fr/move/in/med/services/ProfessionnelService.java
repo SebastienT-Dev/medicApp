@@ -29,4 +29,11 @@ public class ProfessionnelService {
 		professionnelDao.createPatientOrPro(monPro, Professionnel.class);
 	}
 	
+	public void updateProfessionnel(ProfessionnelVo monPro) {
+		professionnelDao.updatePatientOrPro(monPro, Professionnel.class);
+	}
+	
+	public void deleteProfessionnel(ProfessionnelVo monPro) {
+		professionnelDao.deletePatientOrPro(monPro, Professionnel.class);
+	}
 }

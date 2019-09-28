@@ -1,7 +1,11 @@
 package fr.move.in.med.vo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import fr.move.in.med.model.Adresse;
 
 /**
  * 
@@ -24,6 +28,8 @@ public class ProfessionnelVo {
 	private DomaineProVo domaineProfessionnel;
 
 	private Set<PatientVo> listPatients = new HashSet<PatientVo>();
+	
+	private List<Adresse> listAdresses = new ArrayList<Adresse>();
 
 	public ProfessionnelVo() {
 		super();
@@ -76,6 +82,14 @@ public class ProfessionnelVo {
 
 	public void setListPatients(Set<PatientVo> listPatients) {
 		this.listPatients = listPatients;
+	}
+
+	public List<Adresse> getListAdresses() {
+		return listAdresses;
+	}
+
+	public void setListAdresses(List<Adresse> listAdresses) {
+		this.listAdresses = listAdresses;
 	}
 
 }

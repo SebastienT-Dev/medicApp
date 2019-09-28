@@ -1,10 +1,12 @@
-package fr.move.in.med.error;
+package fr.move.in.med.status;
 
 public class RestApiError {
 
 	private String codeError;
 
 	private String message;
+	
+	private String stacktrace;
 
 	public RestApiError() {
 		super();

@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import fr.move.in.med.model.Patient;
+import fr.move.in.med.vo.PatientBasicDetails;
 import fr.move.in.med.vo.PatientVo;
 
 /**
@@ -22,7 +23,7 @@ import fr.move.in.med.vo.PatientVo;
 public class PatientDao extends MainDao {
 
 	public List<Object> retreiveAllPatients() {
-		return this.getAllPatientOrPro(Patient.class);
+		return this.getAllPatientOrPro(Patient.class, PatientBasicDetails.class);
 	}
 
 	public PatientVo findPatientById(long id) {

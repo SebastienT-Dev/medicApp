@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.move.in.med.error.RestApiError;
 import fr.move.in.med.model.Patient;
 import fr.move.in.med.services.PatientService;
 import fr.move.in.med.services.ProfessionnelService;
+import fr.move.in.med.status.RestApiError;
+import fr.move.in.med.status.RestApiSuccess;
 import fr.move.in.med.vo.PatientVo;
 import fr.move.in.med.vo.ProfessionnelVo;
 
@@ -44,25 +45,22 @@ public class ApiController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "all/patients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/all/patients", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getAllPatients() {
-        List<Object> patients = patientService.getAllPatient();
-        if (patients.isEmpty()) {
-            return new ResponseEntity<List<Patient>>(HttpStatus.NO_CONTENT);
-            // You many decide to return HttpStatus.NOT_FOUND
-        }
-  
-        return new ResponseEntity<List<Object>>(patients, HttpStatus.OK);
+        return new ResponseEntity<List<Object>>(patientService.getAllPatient(), HttpStatus.OK);
     }
 
 	/**
 	 * Requete permettant de créer un patient en base de données
 	 * 
 	 * @param patient
+	 * @return 
 	 */
 	@RequestMapping(value = "/create/patient", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void createPatient(@RequestBody PatientVo patient) {
+    public ResponseEntity<Object> createPatient(@RequestBody PatientVo patient) {
 		patientService.createNewPatient(patient);
+        
+		return new ResponseEntity<>(new RestApiSuccess(HttpStatus.CREATED.toString(), "Le nouveau patient a été créer avec succés"), HttpStatus.CREATED);
     }
 	
 	/**
@@ -74,7 +72,7 @@ public class ApiController {
 	@RequestMapping(value = "/update/patient/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void updatePatient(@PathVariable(name = "id") long id, @RequestBody PatientVo patient) {
         
-        
+        patientService.updatePatient(patient, id);
     }
 	
 	/**
@@ -85,7 +83,7 @@ public class ApiController {
 	@RequestMapping(value = "/delete/patient/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void deletePatientById(@PathVariable(name = "id") long id) {
         
-        
+        patientService.deletePatient(id);
     }
 	
 	/**
@@ -94,7 +92,7 @@ public class ApiController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "all/professionnels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/all/professionnels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> getAllProfessionnels() {
         List<Object> professionnels = professionnelService.getAllProfessionnel();
         if (CollectionUtils.isEmpty(professionnels)) {
@@ -123,9 +121,8 @@ public class ApiController {
 	 * @param patient
 	 */
 	@RequestMapping(value = "/update/professionnel/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void updateProfessionnel(@PathVariable(name = "id") long id, @RequestBody ProfessionnelVo patient) {
-        
-        
+    public void updateProfessionnel(@PathVariable(name = "id") long id, @RequestBody ProfessionnelVo pro) {
+        professionnelService.updateProfessionnel(pro);
     }
 	
 	/**
@@ -135,7 +132,6 @@ public class ApiController {
 	 */
 	@RequestMapping(value = "/delete/professionnel/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void deleteProfessionnelById(@PathVariable(name = "id") long id) {
-        
-        
+        //professionnelService.deleteProfessionnel(monPro);
     }
 }
