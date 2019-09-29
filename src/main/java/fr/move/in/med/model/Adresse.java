@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -21,19 +23,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "adresse")
 public class Adresse {
-
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idAdresse")
-	private int idAdresse;
+	@Mapping(value = "idAdresse")
+	private Integer idAdresse;
 
 	@Column(name = "numero")
-	private int numero;
+	private Integer numero;
 
 	@Column(name = "adresse")
 	private String adresse;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idTypeAdresse")
 	private TypeAdresse typeAdresse;
 
@@ -46,7 +50,7 @@ public class Adresse {
 		return idAdresse;
 	}
 
-	public void setIdAdresse(int idAdresse) {
+	public void setIdAdresse(Integer idAdresse) {
 		this.idAdresse = idAdresse;
 	}
 
@@ -54,7 +58,7 @@ public class Adresse {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 

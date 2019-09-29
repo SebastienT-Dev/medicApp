@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.dozer.Mapping;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -34,7 +36,8 @@ public class Professionnel {
 	@Id
 	@GeneratedValue
 	@Column(name = "idPro", nullable = false)
-	private int idPro;
+	@Mapping(value = "idPro")
+	private Integer idPro;
 
 	@Column(name = "nom", nullable = false)
 	private String nom;
@@ -45,13 +48,16 @@ public class Professionnel {
 	@Column(name = "adresseMail")
 	private String adresseMail;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idDomainePro")
 	private DomainePro domaineProfessionnel;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "affiliation_patient_pro", joinColumns = { @JoinColumn(name = "idPro") }, inverseJoinColumns = {
-			@JoinColumn(name = "idPatient") })
+	@JoinTable(
+	        name = "affiliation_pro_patient", 
+	        joinColumns = { @JoinColumn(name = "idPro") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "idPatient") }
+	    )
 	@JsonIgnore
 	private Set<Patient> listPatients = new HashSet<Patient>();
 	
@@ -68,7 +74,7 @@ public class Professionnel {
 		return idPro;
 	}
 
-	public void setIdPro(int idPro) {
+	public void setIdPro(Integer idPro) {
 		this.idPro = idPro;
 	}
 

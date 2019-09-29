@@ -5,6 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.dozer.Mapping;
+
+import fr.move.in.med.constants.Message;
 import fr.move.in.med.model.Adresse;
 
 /**
@@ -16,15 +22,20 @@ import fr.move.in.med.model.Adresse;
  * 
  */
 public class ProfessionnelVo {
+	
+	@Mapping(value = "idPro")
+	private Integer idPro;
 
-	private int idPro;
-
+	@NotNull(message = Message.NOM_EMPTY)
+	@NotBlank(message = Message.NOM_BLANK)
 	private String nom;
-
+	
+	@NotNull(message = Message.PRENOM_EMPTY)
+	@NotBlank(message = Message.PRENOM_BLANK)
 	private String prenom;
 
 	private String adresseMail;
-
+	
 	private DomaineProVo domaineProfessionnel;
 
 	private Set<PatientVo> listPatients = new HashSet<PatientVo>();
@@ -40,7 +51,7 @@ public class ProfessionnelVo {
 		return idPro;
 	}
 
-	public void setIdPro(int idPro) {
+	public void setIdPro(Integer idPro) {
 		this.idPro = idPro;
 	}
 

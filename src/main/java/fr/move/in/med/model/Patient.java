@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.dozer.Mapping;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -33,7 +35,8 @@ public class Patient {
 	@Id
 	@GeneratedValue
 	@Column(name = "idPatient", nullable = false)
-	private int idPatient;
+	@Mapping(value = "idPatient")
+	private Integer idPatient;
 	
 	@Column(name = "nom", nullable = false)
 	private String nom;
@@ -44,10 +47,10 @@ public class Patient {
 	@Column(name = "adresseMail")
 	private String adresseMail;
 	
-	@Column(name = "dateNaissance")
+	@Column(name = "dateNaissance", nullable = false)
 	private Date dateNaissance;
 	
-	@ManyToMany(mappedBy = "listPatients")
+	@ManyToMany(mappedBy = "listPatients", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Professionnel> listProfessionnel = new HashSet<Professionnel>();
 	
@@ -66,7 +69,7 @@ public class Patient {
 	}
 
 
-	public void setIdPatient(int idPatient) {
+	public void setIdPatient(Integer idPatient) {
 		this.idPatient = idPatient;
 	}
 

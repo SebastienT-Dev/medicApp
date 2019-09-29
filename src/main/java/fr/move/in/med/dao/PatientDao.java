@@ -23,7 +23,7 @@ import fr.move.in.med.vo.PatientVo;
 public class PatientDao extends MainDao {
 
 	public List<Object> retreiveAllPatients() {
-		return this.getAllPatientOrPro(Patient.class, PatientBasicDetails.class);
+		return this.getAllObject(Patient.class, PatientBasicDetails.class);
 	}
 
 	public PatientVo findPatientById(long id) {

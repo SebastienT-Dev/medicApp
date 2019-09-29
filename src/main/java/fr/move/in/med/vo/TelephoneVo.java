@@ -1,5 +1,7 @@
 package fr.move.in.med.vo;
 
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -10,8 +12,9 @@ package fr.move.in.med.vo;
  */
 
 public class TelephoneVo {
-
-	private String idTel;
+	
+	@Mapping(value = "idTel")
+	private Integer idTel;
 
 	private String numeroTel;
 
@@ -22,18 +25,18 @@ public class TelephoneVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TelephoneVo(String idTel, String numeroTel, TypeTelVo typeTelephone) {
+	public TelephoneVo(Integer idTel, String numeroTel, TypeTelVo typeTelephone) {
 		super();
 		this.idTel = idTel;
 		this.numeroTel = numeroTel;
 		this.typeTelephone = typeTelephone;
 	}
 
-	public String getIdTel() {
+	public Integer getIdTel() {
 		return idTel;
 	}
 
-	public void setIdTel(String idTel) {
+	public void setIdTel(Integer idTel) {
 		this.idTel = idTel;
 	}
 

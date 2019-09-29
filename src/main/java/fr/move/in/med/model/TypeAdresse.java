@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -19,7 +21,8 @@ public class TypeAdresse {
 	
 	@Id
 	@Column(name = "idTypeAdresse")
-	private int idTypeAdresse;
+	@Mapping(value = "idTypeAdresse")
+	private Integer idTypeAdresse;
 	
 	@Column(name = "libelleTypeAdresse")
 	private String libelleTypeAdresse;
@@ -29,7 +32,7 @@ public class TypeAdresse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TypeAdresse(int idTypeAdresse, String libelleTypeAdresse) {
+	public TypeAdresse(Integer idTypeAdresse, String libelleTypeAdresse) {
 		super();
 		this.idTypeAdresse = idTypeAdresse;
 		this.libelleTypeAdresse = libelleTypeAdresse;
@@ -39,7 +42,7 @@ public class TypeAdresse {
 		return idTypeAdresse;
 	}
 
-	public void setIdTypeAdresse(int idTypeAdresse) {
+	public void setIdTypeAdresse(Integer idTypeAdresse) {
 		this.idTypeAdresse = idTypeAdresse;
 	}
 

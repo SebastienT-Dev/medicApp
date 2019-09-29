@@ -1,5 +1,6 @@
 package fr.move.in.med.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.dozer.Mapping;
 
 /**
  * 
@@ -24,12 +27,13 @@ public class Telephone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idTel")
-	private String idTel;
+	@Mapping(value = "idTel")
+	private Integer idTel;
 	
 	@Column(name = "numeroTel")
 	private String numeroTel;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idTypeTel")
 	private TypeTel typeTelephone;
 
@@ -38,18 +42,18 @@ public class Telephone {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Telephone(String idTel, String numeroTel, TypeTel typeTelephone) {
+	public Telephone(Integer idTel, String numeroTel, TypeTel typeTelephone) {
 		super();
 		this.idTel = idTel;
 		this.numeroTel = numeroTel;
 		this.typeTelephone = typeTelephone;
 	}
 
-	public String getIdTel() {
+	public Integer getIdTel() {
 		return idTel;
 	}
 
-	public void setIdTel(String idTel) {
+	public void setIdTel(Integer idTel) {
 		this.idTel = idTel;
 	}
 

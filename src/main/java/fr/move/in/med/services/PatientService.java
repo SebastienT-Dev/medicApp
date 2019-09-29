@@ -9,14 +9,19 @@ import org.springframework.stereotype.Service;
 
 import fr.move.in.med.dao.PatientDao;
 import fr.move.in.med.model.Patient;
+import fr.move.in.med.utils.MapperUtils;
 import fr.move.in.med.vo.PatientVo;
+import fr.move.in.med.vo.ProfessionnelVo;
 
 @Service
 public class PatientService {
 
 	@Autowired
 	private PatientDao patientDao;
-
+	
+	@Autowired
+	protected MapperUtils mapper;
+	
 	/**
 	 * Fonction permettant de récupérer l'ensemble des patients en bdd
 	 * 
@@ -46,12 +51,10 @@ public class PatientService {
 	 * @param id
 	 * @return
 	 */
-	public void updatePatient(PatientVo monPatient, long id) {
-		if (patientDao.findPatientById(id) == null) {
-
-		}
-
-		patientDao.updatePatientOrPro(monPatient, Patient.class);
+	public void updatePatient(PatientVo monPatient, int id) {
+		PatientVo patient = patientDao.findPatientById(id);
+		
+		patientDao.updatePatientOrPro(monPatient, Patient.class, id);
 	}
 
 	/**

@@ -1,5 +1,10 @@
 package fr.move.in.med.vo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -9,8 +14,11 @@ package fr.move.in.med.vo;
  * 
  */
 public class TypeAdresseVo {
-
-	private int idTypeAdresse;
+	
+	@Mapping(value = "idTypeAdresse")
+	@Min(value = 1, message = "la valeur minimale doit etre de 1")
+	@Max(value = 5, message = "la valeur maximale doit etre 5")
+	private Integer idTypeAdresse;
 
 	private String libelleTypeAdresse;
 
@@ -19,7 +27,7 @@ public class TypeAdresseVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TypeAdresseVo(int idTypeAdresse, String libelleTypeAdresse) {
+	public TypeAdresseVo(Integer idTypeAdresse, String libelleTypeAdresse) {
 		super();
 		this.idTypeAdresse = idTypeAdresse;
 		this.libelleTypeAdresse = libelleTypeAdresse;
@@ -29,7 +37,7 @@ public class TypeAdresseVo {
 		return idTypeAdresse;
 	}
 
-	public void setIdTypeAdresse(int idTypeAdresse) {
+	public void setIdTypeAdresse(Integer idTypeAdresse) {
 		this.idTypeAdresse = idTypeAdresse;
 	}
 

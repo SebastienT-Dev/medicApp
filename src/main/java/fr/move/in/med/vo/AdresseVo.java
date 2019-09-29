@@ -1,5 +1,7 @@
 package fr.move.in.med.vo;
 
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -9,10 +11,11 @@ package fr.move.in.med.vo;
  * 
  */
 public class AdresseVo {
+	
+	@Mapping(value = "idAdresse")
+	private Integer idAdresse;
 
-	private int idAdresse;
-
-	private int numero;
+	private Integer numero;
 
 	private String adresse;
 
@@ -27,7 +30,7 @@ public class AdresseVo {
 		return idAdresse;
 	}
 
-	public void setIdAdresse(int idAdresse) {
+	public void setIdAdresse(Integer idAdresse) {
 		this.idAdresse = idAdresse;
 	}
 
@@ -35,7 +38,7 @@ public class AdresseVo {
 		return numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 

@@ -6,6 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.dozer.Mapping;
+
+import fr.move.in.med.constants.Message;
+
 /**
  * 
  * @author sebastienternisien
@@ -16,14 +23,20 @@ import java.util.Set;
  */
 public class PatientVo {
 
-	private int idPatient;
-
+	@Mapping(value = "idPatient")
+	private Integer idPatient;
+	
+	@NotNull(message = Message.NOM_EMPTY)
+	@NotBlank(message = Message.NOM_BLANK)
 	private String nom;
-
+	
+	@NotNull(message = Message.NOM_EMPTY)
+	@NotBlank(message = Message.NOM_BLANK)
 	private String prenom;
 
 	private String adresseMail;
-
+	
+	@NotNull(message = Message.DATE_NAISSANCE_EMPTY)
 	private Date dateNaissance;
 
 	private Set<ProfessionnelVo> listProfessionnel = new HashSet<ProfessionnelVo>();
@@ -39,7 +52,7 @@ public class PatientVo {
 		return idPatient;
 	}
 
-	public void setIdPatient(int idPatient) {
+	public void setIdPatient(Integer idPatient) {
 		this.idPatient = idPatient;
 	}
 

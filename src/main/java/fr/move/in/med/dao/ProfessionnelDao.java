@@ -7,7 +7,9 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import fr.move.in.med.model.DomainePro;
 import fr.move.in.med.model.Professionnel;
+import fr.move.in.med.vo.DomaineProVo;
 import fr.move.in.med.vo.ProfessionnelBasicDetails;
 import fr.move.in.med.vo.ProfessionnelVo;
 
@@ -27,9 +29,13 @@ public class ProfessionnelDao extends MainDao {
 	 * @return
 	 */
 	public List<Object> retreiveAllProfessionnels() {
-		return this.getAllPatientOrPro(Professionnel.class, ProfessionnelBasicDetails.class);
+		return this.getAllObject(Professionnel.class, ProfessionnelBasicDetails.class);
 	}
-
+	
+	public List<Object> retreiveAllDomainePro(){
+		return this.getAllObject(DomainePro.class, DomaineProVo.class);
+	}
+	
 	/**
 	 * 
 	 * @param id
@@ -38,7 +44,7 @@ public class ProfessionnelDao extends MainDao {
 	public ProfessionnelVo findPatientById(long id) {
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery(String.format("from Professionnel as p where p.idPro = %s", id));
-		Object proFromDao = (Object) q.getSingleResult();
+		Professionnel proFromDao = (Professionnel) q.getSingleResult();
 		ProfessionnelVo monPro = (ProfessionnelVo) this.mapper.convertObject(proFromDao, ProfessionnelVo.class);
 		return monPro;
 	}

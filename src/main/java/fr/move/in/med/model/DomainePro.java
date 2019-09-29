@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -19,7 +21,8 @@ public class DomainePro {
 
 	@Id
 	@Column(name = "idDomainePro")
-	private int idDomainePro;
+	@Mapping(value = "idDomainePro")
+	private Integer idDomainePro;
 
 	@Column(name = "libelleDomainePro")
 	private String libelleDomainePro;
@@ -28,7 +31,7 @@ public class DomainePro {
 		return idDomainePro;
 	}
 
-	public void setIdDomainePro(int idDomainePro) {
+	public void setIdDomainePro(Integer idDomainePro) {
 		this.idDomainePro = idDomainePro;
 	}
 

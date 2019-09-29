@@ -1,5 +1,10 @@
 package fr.move.in.med.vo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -9,8 +14,11 @@ package fr.move.in.med.vo;
  * 
  */
 public class TypeTelVo {
-
-	private int idTypeTel;
+	
+	@Mapping(value = "idTypeTel")
+	@Min(value = 1, message = "la valeur minimale doit etre de 1")
+	@Max(value = 4, message = "la valeur maximale doit etre 4")
+	private Integer idTypeTel;
 
 	private String libelleTypeTel;
 
@@ -19,7 +27,7 @@ public class TypeTelVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TypeTelVo(int idTypeTel, String libelleTypeTel) {
+	public TypeTelVo(Integer idTypeTel, String libelleTypeTel) {
 		super();
 		this.idTypeTel = idTypeTel;
 		this.libelleTypeTel = libelleTypeTel;
@@ -29,7 +37,7 @@ public class TypeTelVo {
 		return idTypeTel;
 	}
 
-	public void setIdTypeTel(int idTypeTel) {
+	public void setIdTypeTel(Integer idTypeTel) {
 		this.idTypeTel = idTypeTel;
 	}
 

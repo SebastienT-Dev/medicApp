@@ -1,5 +1,10 @@
 package fr.move.in.med.vo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.dozer.Mapping;
+
 /**
  * 
  * @author sebastienternisien
@@ -10,7 +15,10 @@ package fr.move.in.med.vo;
  */
 public class DomaineProVo {
 	
-	private int idDomainePro;
+	@Mapping(value = "idDomainePro")
+	@Min(value = 1, message = "la valeur minimale doit etre de 1")
+	@Max(value = 6, message = "la valeur maximale doit etre 6")
+	private Integer idDomainePro;
 
 	private String libelleDomainePro;
 
@@ -18,7 +26,7 @@ public class DomaineProVo {
 		return idDomainePro;
 	}
 
-	public void setIdDomainePro(int idDomainePro) {
+	public void setIdDomainePro(Integer idDomainePro) {
 		this.idDomainePro = idDomainePro;
 	}
 
