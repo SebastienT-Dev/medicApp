@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -52,11 +53,11 @@ public class Professionnel {
 	@JoinColumn(name = "idDomainePro")
 	private DomainePro domaineProfessionnel;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.ALL,  }, fetch = FetchType.EAGER)
 	@JoinTable(
 	        name = "affiliation_pro_patient", 
-	        joinColumns = { @JoinColumn(name = "idPro") }, 
-	        inverseJoinColumns = { @JoinColumn(name = "idPatient") }
+	        joinColumns = { @JoinColumn(name = "idPro", referencedColumnName = "idPro") }, 
+	        inverseJoinColumns = { @JoinColumn(name = "idPatient", referencedColumnName = "idPatient") }
 	    )
 	@JsonIgnore
 	private Set<Patient> listPatients = new HashSet<Patient>();

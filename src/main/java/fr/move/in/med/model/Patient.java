@@ -9,9 +9,11 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -50,7 +52,10 @@ public class Patient {
 	@Column(name = "dateNaissance", nullable = false)
 	private Date dateNaissance;
 	
-	@ManyToMany(mappedBy = "listPatients", cascade = CascadeType.ALL)
+	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "affiliation_pro_patient",
+    joinColumns = @JoinColumn(name = "idPatient", referencedColumnName = "idPatient"),
+    inverseJoinColumns = @JoinColumn(name = "idPro", referencedColumnName = "idPro"))
 	@JsonIgnore
 	private Set<Professionnel> listProfessionnel = new HashSet<Professionnel>();
 	
