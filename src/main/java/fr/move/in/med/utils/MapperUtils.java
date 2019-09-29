@@ -15,11 +15,11 @@ public class MapperUtils {
 	@Autowired
 	private Mapper mapper;
 
-	public Object convertObject(Object sourceObject, Class<?> destinationClass) throws MappingException {
+	public Object convertObject(Object sourceObject, Class<?> destinationClass) {
 		return this.mappingObject(sourceObject, destinationClass);
 	}
 
-	public List<Object> convertListObject(List<?> listObject, Class<?> destinationClass) throws MappingException {
+	public List<Object> convertListObject(List<?> listObject, Class<?> destinationClass) {
 		List<Object> listConvert = new ArrayList<Object>();
 
 		if (CollectionUtils.isEmpty(listObject)) {
@@ -34,7 +34,7 @@ public class MapperUtils {
 		return listConvert;
 	}
 
-	private Object mappingObject(Object o, Class<?> destinationClass) throws MappingException {
+	private Object mappingObject(Object o, Class<?> destinationClass) {
 		Object myObject = null;
 		myObject = mapper.map(o, destinationClass);
 

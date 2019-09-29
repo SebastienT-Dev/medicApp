@@ -22,24 +22,24 @@ import fr.move.in.med.model.Adresse;
  * 
  */
 public class ProfessionnelVo {
-	
+
 	@Mapping(value = "idPro")
 	private Integer idPro;
 
 	@NotNull(message = Message.NOM_EMPTY)
 	@NotBlank(message = Message.NOM_BLANK)
 	private String nom;
-	
+
 	@NotNull(message = Message.PRENOM_EMPTY)
 	@NotBlank(message = Message.PRENOM_BLANK)
 	private String prenom;
 
 	private String adresseMail;
-	
+
 	private DomaineProVo domaineProfessionnel;
 
 	private Set<PatientVo> listPatients = new HashSet<PatientVo>();
-	
+
 	private List<Adresse> listAdresses = new ArrayList<Adresse>();
 
 	public ProfessionnelVo() {

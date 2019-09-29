@@ -21,11 +21,21 @@ import fr.move.in.med.vo.PatientVo;
  */
 @Repository
 public class PatientDao extends MainDao {
-
+	
 	public List<Object> retreiveAllPatients() {
 		return this.getAllObject(Patient.class, PatientBasicDetails.class);
 	}
-
+	
+	public List<Object> findPatientsByCriteria(String query){
+		EntityManager em = emf.createEntityManager();
+		Query q = em.createQuery(query);
+		@SuppressWarnings("unchecked")
+		List<Object> listResult = q.getResultList();
+		List<Object> listConvert = this.mapper.convertListObject(listResult, PatientBasicDetails.class);
+		
+		return listConvert;
+	}
+	
 	public PatientVo findPatientById(long id) {
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery(String.format("from Patient as p where p.idPatient = %s", id));

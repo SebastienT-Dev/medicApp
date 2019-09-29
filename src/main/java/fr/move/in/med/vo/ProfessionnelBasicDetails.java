@@ -2,6 +2,8 @@ package fr.move.in.med.vo;
 
 public class ProfessionnelBasicDetails {
 
+	private Integer idPro;
+
 	private String nom;
 
 	private String prenom;
@@ -18,6 +20,14 @@ public class ProfessionnelBasicDetails {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.domaineProfessionnel = domaineProfessionnel;
+	}
+
+	public Integer getIdPro() {
+		return idPro;
+	}
+
+	public void setIdPro(Integer idPro) {
+		this.idPro = idPro;
 	}
 
 	public String getNom() {

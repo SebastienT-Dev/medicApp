@@ -2,6 +2,8 @@ package fr.move.in.med.vo;
 
 public class PatientBasicDetails {
 
+	private Integer idPatient;
+
 	private String nom;
 
 	private String prenom;
@@ -18,6 +20,14 @@ public class PatientBasicDetails {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
+	}
+
+	public Integer getIdPatient() {
+		return idPatient;
+	}
+
+	public void setIdPatient(Integer idPatient) {
+		this.idPatient = idPatient;
 	}
 
 	public String getNom() {
