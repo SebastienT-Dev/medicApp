@@ -53,9 +53,9 @@ public class ProfessionnelDao extends MainDao {
 		Query q = em.createQuery(query);
 		@SuppressWarnings("unchecked")
 		List<Object> listResult = (List<Object>) q.getResultList();
-
-		
-		return listResult;
+		List<Object> listPro = this.mapper.convertListObject(listResult, ProfessionnelBasicDetails.class);
+			
+		return listPro;
 	}
 	
 	/**

@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import fr.move.in.med.dao.PatientDao;
+import fr.move.in.med.exceptions.CustomException;
 import fr.move.in.med.model.Patient;
 import fr.move.in.med.utils.MapperUtils;
 import fr.move.in.med.vo.PatientVo;
@@ -29,13 +31,15 @@ public class PatientService extends MainService {
 	 * Fonction permettant de récupérer l'intégralité des patients
 	 * 
 	 * @return {@link ArrayList} retourne une liste d'objet {@link PatientVo}
+	 * @throws CustomException 
 	 */
-	public List<Object> getAllPatient() {
+	public List<Object> getAllPatient() throws CustomException {
 		List<Object> listPatients = patientDao.retreiveAllPatients();
 
 		if (CollectionUtils.isEmpty(listPatients)) {
-
+			throw new CustomException("Aucun patient existant", HttpStatus.NO_CONTENT.toString());
 		}
+		
 		return listPatients;
 	}
 
@@ -44,9 +48,15 @@ public class PatientService extends MainService {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws CustomException 
 	 */
-	public List<Object> getProFromPatient(int id) {
+	public List<Object> getProFromPatient(int id) throws CustomException {
 		PatientVo monPatient = patientDao.findPatientById(id);
+		
+		if (monPatient == null) {
+			throw new CustomException("Aucun patient existant avec ID", HttpStatus.NO_CONTENT.toString());
+		}
+		
 		Set<ProfessionnelVo> set = monPatient.getListProfessionnel();
 
 		List<Object> listPro = mapper.convertListObject(set.stream().collect(Collectors.toList()),
@@ -70,9 +80,15 @@ public class PatientService extends MainService {
 	 * 
 	 * @param monPatient
 	 * @param id
+	 * @throws CustomException 
 	 */
-	public void updatePatient(PatientVo monPatient, int id) {
+	public void updatePatient(PatientVo monPatient, int id) throws CustomException {
 		patientDao.findPatientById(id);
+		
+		if (patientDao.findPatientById(id) == null) {
+			throw new CustomException("Aucun patient existant avec ID", HttpStatus.NO_CONTENT.toString());
+		}
+		
 		patientDao.updatePatientOrPro(monPatient, Patient.class, id);
 	}
 
@@ -82,12 +98,13 @@ public class PatientService extends MainService {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws CustomException 
 	 */
-	public void deletePatient(long id) {
+	public void deletePatient(long id) throws CustomException {
 		PatientVo p = patientDao.findPatientById(id);
 
 		if (p == null) {
-
+			throw new CustomException("Aucun patient existant avec ID", HttpStatus.NO_CONTENT.toString());
 		}
 
 		patientDao.deletePatientOrPro(p, Patient.class);

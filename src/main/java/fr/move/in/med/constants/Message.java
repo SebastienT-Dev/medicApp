@@ -8,7 +8,7 @@ public class Message {
 	
 	public static final String HIBERNATE_ERROR = "Une erreur en relation avec la base de données c'est produite";
 	public static final String MAPPING_ERROR = "Une erreur de mapping des objets JAVA a eu lieu";
-	public static final String ILLEGAL_STATE_ERROR = "Invocation ou une utilisation inapproprié d'une méthode JAVA";
+	public static final String JAVA_ERROR = "Une erreur a lieu dans le programme interne";
 	
 	//ERREUR DE VALIDATION
 	public static final String NOM_EMPTY = "le nom doit etre au minimum renseigné";

@@ -37,7 +37,7 @@ public class ProfessionnelVo {
 	private String adresseMail;
 
 	private DomaineProVo domaineProfessionnel;
-
+	
 	private Set<PatientVo> listPatients = new HashSet<PatientVo>();
 
 	private List<Adresse> listAdresses = new ArrayList<Adresse>();

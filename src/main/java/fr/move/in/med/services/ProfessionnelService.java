@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,13 @@ public class ProfessionnelService extends MainService {
 	 * Fonction permettant de récupérer l'ensemble des patients en bdd
 	 * 
 	 * @return {@link ArrayList} retourne une liste d'objet {@link ProfessionnelVo}
+	 * @throws CustomException 
 	 */
-	public List<Object> getAllProfessionnel() {
+	public List<Object> getAllProfessionnel() throws CustomException {
+		List<Object> listPro = professionnelDao.retreiveAllProfessionnels();
+		if (CollectionUtils.isEmpty(listPro)) {
+			throw new CustomException("Aucun professionnel existant", HttpStatus.NOT_FOUND.toString());
+		}
 		return professionnelDao.retreiveAllProfessionnels();
 	}
 
@@ -40,12 +46,22 @@ public class ProfessionnelService extends MainService {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws CustomException 
 	 */
-	public List<Object> getPatientsFromPro(int id) {
+	public List<Object> getPatientsFromPro(int id) throws CustomException {
 		ProfessionnelVo monPro = professionnelDao.findProfessionnelById(id);
+		
+		if (monPro== null) {
+			throw new CustomException("Aucun professionnel existant avec cet ID", HttpStatus.NOT_FOUND.toString());
+		}
+		
 		Set<PatientVo> set = monPro.getListPatients();
 		List<Object> listPro = mapper.convertListObject(set.stream().collect(Collectors.toList()),
 				PatientBasicDetails.class);
+		
+		if (CollectionUtils.isEmpty(listPro)) {
+			throw new CustomException("Aucun patient existant pour le professionnel demandé", HttpStatus.NOT_FOUND.toString());
+		}
 
 		return listPro;
 
@@ -69,9 +85,8 @@ public class ProfessionnelService extends MainService {
 	 */
 	public void updateProfessionnel(ProfessionnelVo monPro, int id) throws CustomException {
 		if (professionnelDao.findProfessionnelById(id) == null) {
-			throw new CustomException("Utilsateur non trouvé", HttpStatus.NOT_FOUND.toString());
+			throw new CustomException("Aucun professionnel existant avec cet ID", HttpStatus.NOT_FOUND.toString());
 		}
-
 		professionnelDao.updatePatientOrPro(monPro, Professionnel.class, id);
 	}
 
@@ -82,8 +97,10 @@ public class ProfessionnelService extends MainService {
 	 * @throws CustomException
 	 */
 	public void deleteProfessionnel(long id) throws CustomException {
-
 		ProfessionnelVo monPro = professionnelDao.findProfessionnelById(id);
+		if (monPro == null) {
+			throw new CustomException("Aucun professionnel existant avec cet ID", HttpStatus.NOT_FOUND.toString());
+		}
 		professionnelDao.deletePatientOrPro(monPro, Professionnel.class);
 	}
 }

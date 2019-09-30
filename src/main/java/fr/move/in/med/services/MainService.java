@@ -32,7 +32,7 @@ public abstract class MainService {
 	protected PatientDao patientDao;
 	
 	
-	public List<Object> getPatientOrProByCriterias(Object myObject, String typeTri, StringBuilder str, boolean isInvokeQuery, String alias)
+	public List<?> getPatientOrProByCriterias(Object myObject, String typeTri, StringBuilder str, boolean isInvokeQuery, String alias)
 			throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (myObject == null || (!(myObject instanceof PatientVo) && !(myObject instanceof ProfessionnelVo))) {
 
@@ -40,6 +40,7 @@ public abstract class MainService {
 		
 		PatientDao patientDao = null;
 		ProfessionnelDao proDao = null;
+		Boolean isInstanceOfPro = false;
 		
 		if (myObject instanceof PatientVo || myObject instanceof ProfessionnelVo) {
 			boolean isInstancePatient = myObject instanceof PatientVo;
@@ -49,7 +50,7 @@ public abstract class MainService {
 				patientDao = this.patientDao;
 				PatientVo myPatient = (PatientVo) myObject;
 				boolean isContainAdress = CollectionUtils.isNotEmpty(myPatient.getListAdresses());
-				str.append(String.format("select p.nom, p.prenom from %s as p ", Patient.class.getName()));
+				str.append(String.format("from %s as p ", Patient.class.getName()));
 				
 				if (isContainAdress) {
 					str.append(String.format(", %s as a ", Adresse.class.getName()));
@@ -62,11 +63,12 @@ public abstract class MainService {
 				}
 				
 			} else {
+				isInstanceOfPro = true;
 				proDao = this.professionnelDao;
 				ProfessionnelVo  myPro = (ProfessionnelVo) myObject;
 				boolean isContainAdress = CollectionUtils.isNotEmpty(myPro.getListAdresses());
 				boolean isDomaineProNotNull = myPro.getDomaineProfessionnel() != null;
-				str.append(String.format("select p.nom, p.prenom from %s as p ", Professionnel.class.getName()));
+				str.append(String.format("from %s as p ", Professionnel.class.getName()));
 				
 				if (isContainAdress) {
 					str.append(String.format(", %s as a ", Adresse.class.getName()));
@@ -122,14 +124,23 @@ public abstract class MainService {
 			str = new StringBuilder(query);
 			
 			if (StringUtils.isNotBlank(typeTri)) {
-				str.append(String.format("order by %s.nom", alias)).append(typeTri).append(String.format(", %s.prenom ", alias)).append(typeTri);
+				str.append(String.format("order by %s.nom ", alias)).append(typeTri).append(String.format(", %s.prenom ", alias)).append(typeTri);
+				
+				if (isInstanceOfPro) {
+					str.append(", p.domaineProfessionnel.libelleDomainePro ").append(typeTri);
+				}
 			} else {
 				str.append(String.format("order by %s.nom, %s.prenom ", alias, alias));
+				
+				if (isInstanceOfPro) {
+					str.append(", p.domaineProfessionnel.libelleDomainePro ");
+				}
 			}
 			
-			List<Object> listToReturn = new ArrayList<Object>();
+			
+			List<?> listToReturn = new ArrayList<Object>();
 			if (proDao != null) {
-				listToReturn = professionnelDao.findProByCriteria(str.toString());
+				listToReturn = proDao.findProByCriteria(str.toString());
 			} else {
 				listToReturn = patientDao.findPatientsByCriteria(str.toString());
 			}

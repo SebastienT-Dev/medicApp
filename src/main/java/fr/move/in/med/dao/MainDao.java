@@ -68,9 +68,14 @@ public abstract class MainDao {
 		EntityManager em = emf.createEntityManager();
 		Transaction transac = (Transaction) em.getTransaction();
 		transac.begin();
-		em.unwrap(Session.class).save(patientOrProDao);
-		em.flush();
-		transac.commit();
+		try {
+			em.unwrap(Session.class).save(patientOrProDao);
+			em.flush();
+			transac.commit();
+		} catch (Exception e) {
+			transac.rollback();
+		}
+		
 
 	}
 
@@ -87,10 +92,13 @@ public abstract class MainDao {
 		EntityManager em = emf.createEntityManager();
 		Transaction transac = (Transaction) em.getTransaction();
 		transac.begin();
-		em.remove(em.merge(patientOrProDao));
-		em.flush();
-		transac.commit();
-
+		try {
+			em.remove(em.merge(patientOrProDao));
+			em.flush();
+			transac.commit();
+		} catch (Exception e) {
+			transac.rollback();
+		}
 	}
 
 	/**
@@ -127,9 +135,13 @@ public abstract class MainDao {
 		EntityManager em = emf.createEntityManager();
 		Transaction transac = (Transaction) em.getTransaction();
 		transac.begin();
-		em.merge(patientOrPro);
-		em.flush();
-		transac.commit();
+		try {
+			em.merge(patientOrPro);
+			em.flush();
+			transac.commit();
+		} catch (Exception e) {
+			transac.rollback();
+		}
 	} 
 
 }

@@ -20,8 +20,6 @@ import javax.persistence.Table;
 
 import org.dozer.Mapping;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * 
  * @author sebastienternisien
@@ -56,7 +54,7 @@ public class Patient {
 	@JoinTable(name = "affiliation_pro_patient",
     joinColumns = @JoinColumn(name = "idPatient", referencedColumnName = "idPatient"),
     inverseJoinColumns = @JoinColumn(name = "idPro", referencedColumnName = "idPro"))
-	@JsonIgnore
+
 	private Set<Professionnel> listProfessionnel = new HashSet<Professionnel>();
 	
 	@OneToMany(cascade = CascadeType.ALL)

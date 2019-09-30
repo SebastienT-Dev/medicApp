@@ -2,6 +2,8 @@ package fr.move.in.med.vo;
 
 import org.dozer.Mapping;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import fr.move.in.med.model.Professionnel;
 
 /**
@@ -9,11 +11,11 @@ import fr.move.in.med.model.Professionnel;
  * @author sebastienternisien
  * @since 26/09/2019
  * 
- * Classe représentant le modéle de donnée pour la table "adresse"
+ *        Classe représentant le modéle de donnée pour la table "adresse"
  * 
  */
 public class AdresseVo {
-	
+
 	@Mapping(value = "idAdresse")
 	private Integer idAdresse;
 
@@ -23,11 +25,12 @@ public class AdresseVo {
 	private String adresse;
 
 	private TypeAdresseVo typeAdresse;
-	
+
+	@JsonIgnore(value = true)
 	private PatientVo monPatient;
-	
+
+	@JsonIgnore(value = true)
 	private Professionnel monPro;
-	
 
 	public AdresseVo() {
 		super();

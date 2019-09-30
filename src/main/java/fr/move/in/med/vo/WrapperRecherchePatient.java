@@ -1,6 +1,6 @@
 package fr.move.in.med.vo;
 
-public class WrapperRecherche {
+public class WrapperRecherchePatient {
 	
 	private PatientVo findPatient;
 	

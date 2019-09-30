@@ -31,9 +31,9 @@ public class PatientDao extends MainDao {
 		Query q = em.createQuery(query);
 		@SuppressWarnings("unchecked")
 		List<Object> listResult = (List<Object>) q.getResultList();
-
+		List<Object> listPro = this.mapper.convertListObject(listResult, PatientBasicDetails.class);
 		
-		return listResult;
+		return listPro;
 	}
 	
 	public PatientVo findPatientById(long id) {
