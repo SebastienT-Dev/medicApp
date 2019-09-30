@@ -215,6 +215,6 @@ public class ApiController {
 		professionnelService.deleteProfessionnel(id);
 
 		return new ResponseEntity<>(
-				new RestApiSuccess(HttpStatus.OK.toString(), "Le patient a été supprimé avec succés"), HttpStatus.OK);
+				new RestApiSuccess(HttpStatus.OK.toString(), "Le professionnel a été supprimé avec succés"), HttpStatus.OK);
 	}
 }
