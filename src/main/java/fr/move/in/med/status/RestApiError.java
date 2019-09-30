@@ -1,5 +1,11 @@
 package fr.move.in.med.status;
 
+/**
+ * Classe Représentant une réponse réponse REST en erreur
+ * 
+ * @author sebastienternisien
+ *
+ */
 public class RestApiError {
 
 	private String codeError;

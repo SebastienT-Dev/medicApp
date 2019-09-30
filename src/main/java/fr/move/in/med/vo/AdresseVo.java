@@ -2,6 +2,8 @@ package fr.move.in.med.vo;
 
 import org.dozer.Mapping;
 
+import fr.move.in.med.model.Professionnel;
+
 /**
  * 
  * @author sebastienternisien
@@ -15,11 +17,17 @@ public class AdresseVo {
 	@Mapping(value = "idAdresse")
 	private Integer idAdresse;
 
+	@Mapping(value = "numero")
 	private Integer numero;
 
 	private String adresse;
 
 	private TypeAdresseVo typeAdresse;
+	
+	private PatientVo monPatient;
+	
+	private Professionnel monPro;
+	
 
 	public AdresseVo() {
 		super();
@@ -56,6 +64,22 @@ public class AdresseVo {
 
 	public void setTypeAdresse(TypeAdresseVo typeAdresse) {
 		this.typeAdresse = typeAdresse;
+	}
+
+	public PatientVo getMonPatient() {
+		return monPatient;
+	}
+
+	public void setMonPatient(PatientVo monPatient) {
+		this.monPatient = monPatient;
+	}
+
+	public Professionnel getMonPro() {
+		return monPro;
+	}
+
+	public void setMonPro(Professionnel monPro) {
+		this.monPro = monPro;
 	}
 
 }

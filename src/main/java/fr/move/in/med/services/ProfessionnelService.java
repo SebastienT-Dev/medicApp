@@ -18,7 +18,7 @@ import fr.move.in.med.vo.PatientVo;
 import fr.move.in.med.vo.ProfessionnelVo;
 
 @Service
-public class ProfessionnelService {
+public class ProfessionnelService extends MainService {
 
 	@Autowired
 	private ProfessionnelDao professionnelDao;
@@ -42,7 +42,7 @@ public class ProfessionnelService {
 	 * @return
 	 */
 	public List<Object> getPatientsFromPro(int id) {
-		ProfessionnelVo monPro = professionnelDao.findPatientById(id);
+		ProfessionnelVo monPro = professionnelDao.findProfessionnelById(id);
 		Set<PatientVo> set = monPro.getListPatients();
 		List<Object> listPro = mapper.convertListObject(set.stream().collect(Collectors.toList()),
 				PatientBasicDetails.class);
@@ -68,7 +68,7 @@ public class ProfessionnelService {
 	 * @throws CustomException
 	 */
 	public void updateProfessionnel(ProfessionnelVo monPro, int id) throws CustomException {
-		if (professionnelDao.findPatientById(id) == null) {
+		if (professionnelDao.findProfessionnelById(id) == null) {
 			throw new CustomException("Utilsateur non trouvé", HttpStatus.NOT_FOUND.toString());
 		}
 
@@ -83,7 +83,7 @@ public class ProfessionnelService {
 	 */
 	public void deleteProfessionnel(long id) throws CustomException {
 
-		ProfessionnelVo monPro = professionnelDao.findPatientById(id);
+		ProfessionnelVo monPro = professionnelDao.findProfessionnelById(id);
 		professionnelDao.deletePatientOrPro(monPro, Professionnel.class);
 	}
 }

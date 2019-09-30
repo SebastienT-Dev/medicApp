@@ -30,10 +30,10 @@ public class PatientDao extends MainDao {
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery(query);
 		@SuppressWarnings("unchecked")
-		List<Object> listResult = q.getResultList();
-		List<Object> listConvert = this.mapper.convertListObject(listResult, PatientBasicDetails.class);
+		List<Object> listResult = (List<Object>) q.getResultList();
+
 		
-		return listConvert;
+		return listResult;
 	}
 	
 	public PatientVo findPatientById(long id) {

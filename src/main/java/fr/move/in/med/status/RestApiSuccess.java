@@ -1,5 +1,11 @@
 package fr.move.in.med.status;
 
+/**
+ * Classe représentant une réponse REST en succés
+ * 
+ * @author sebastienternisien
+ *
+ */
 public class RestApiSuccess {
 	
 	private String code;

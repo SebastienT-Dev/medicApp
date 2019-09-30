@@ -32,6 +32,7 @@ public class Adresse {
 	private Integer idAdresse;
 
 	@Column(name = "numero")
+	@Mapping(value = "numero")
 	private Integer numero;
 
 	@Column(name = "adresse")
@@ -40,7 +41,16 @@ public class Adresse {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idTypeAdresse")
 	private TypeAdresse typeAdresse;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "idPatient")
+	private Patient monPatient;
+	
+	@ManyToOne
+	@JoinColumn(name = "idPro")
+	private Professionnel monPro;
+	
+	
 	public Adresse() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -76,6 +86,22 @@ public class Adresse {
 
 	public void setTypeAdresse(TypeAdresse typeAdresse) {
 		this.typeAdresse = typeAdresse;
+	}
+
+	public Patient getMonPatient() {
+		return monPatient;
+	}
+
+	public void setMonPatient(Patient monPatient) {
+		this.monPatient = monPatient;
+	}
+
+	public Professionnel getMonPro() {
+		return monPro;
+	}
+
+	public void setMonPro(Professionnel monPro) {
+		this.monPro = monPro;
 	}
 
 }

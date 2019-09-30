@@ -25,6 +25,7 @@ import fr.move.in.med.vo.ProfessionnelVo;
 public class ProfessionnelDao extends MainDao {
 
 	/**
+	 * Fonction permettant de récupérer une collection de professionnels
 	 * 
 	 * @return
 	 */
@@ -32,16 +33,38 @@ public class ProfessionnelDao extends MainDao {
 		return this.getAllObject(Professionnel.class, ProfessionnelBasicDetails.class);
 	}
 	
+	/**
+	 * Fonction permettant de récupérer une collection de domaine professionnel
+	 * 
+	 * @return
+	 */
 	public List<Object> retreiveAllDomainePro(){
 		return this.getAllObject(DomainePro.class, DomaineProVo.class);
 	}
 	
 	/**
+	 * Fonction permettant de récuper un professionnel à partir de critère de recherche
+	 * 
+	 * @param query
+	 * @return
+	 */
+	public List<Object> findProByCriteria(String query){
+		EntityManager em = emf.createEntityManager();
+		Query q = em.createQuery(query);
+		@SuppressWarnings("unchecked")
+		List<Object> listResult = (List<Object>) q.getResultList();
+
+		
+		return listResult;
+	}
+	
+	/**
+	 * Fonction permettant de rechercher un professionnel à partir de son id
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public ProfessionnelVo findPatientById(long id) {
+	public ProfessionnelVo findProfessionnelById(long id) {
 		EntityManager em = emf.createEntityManager();
 		Query q = em.createQuery(String.format("from Professionnel as p where p.idPro = %s", id));
 		Professionnel proFromDao = (Professionnel) q.getSingleResult();

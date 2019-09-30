@@ -25,6 +25,7 @@ import fr.move.in.med.status.RestApiSuccess;
 import fr.move.in.med.vo.PatientVo;
 import fr.move.in.med.vo.ProfessionnelVo;
 import fr.move.in.med.vo.WrapperRecherche;
+import fr.move.in.med.vo.WrapperRecherchePro;
 
 /**
  * 
@@ -58,11 +59,32 @@ public class ApiController {
 	@RequestMapping(value = "/find/patients", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> findPatientByCriterias(@RequestBody @Valid WrapperRecherche maRecherche)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+		StringBuilder str = new StringBuilder();
 		return new ResponseEntity<List<Object>>(
-				patientService.getPatientByCriteria(maRecherche.getFindPatient(), maRecherche.getTypeDeTri()),
+				patientService.getPatientOrProByCriterias(maRecherche.getFindPatient(), maRecherche.getTypeDeTri(), str, true , "p"),
 				HttpStatus.OK);
 	}
-
+	
+	/**
+	 * Requete permettant d'effectuer une recherche de patients à partir de critère
+	 * utilisateur
+	 * 
+	 * @param maRecherche
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws IntrospectionException
+	 */
+	@RequestMapping(value = "/find/pros", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<?> findProByCriterias(@RequestBody @Valid WrapperRecherchePro maRecherche)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, IntrospectionException {
+		StringBuilder str = new StringBuilder();
+		return new ResponseEntity<List<Object>>(
+				professionnelService.getPatientOrProByCriterias(maRecherche.getFindPro(), maRecherche.getTypeDeTri(), str, true , "p"),
+				HttpStatus.OK);
+	}
+	
 	/**
 	 * Requete permettant de retourner l'intégralité des patients en base de données
 	 * et de retourner cette liste au format JSON
