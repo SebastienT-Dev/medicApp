@@ -9,12 +9,12 @@ Processus d'installation de l'application :
 2 - Importer le ddl
 3 - importer le fichier data.sql pour importer les types prédéfinis
 
-4.1 : Méthode d'installation de l'application via Eclipse :
+#4.1 : Méthode d'installation de l'application via Eclipse :
   4.1.2 - Cloner le projet en local
   4.1.3 - importer le projet via eclipse en faisant "import" -> "Existing maven project"
   4.1.4 - Lancer le projet en tant que "Java Application"
   
-4.2 : Méthode d'installation sur un serveur Tomcat en local
+#4.2 : Méthode d'installation sur un serveur Tomcat en local
   4.2.1 : Installer la version TomCat 9 (version utilisé par SpringBoot via Eclipse)
   4.2.2 : Déposer le War sur le serveur
 
