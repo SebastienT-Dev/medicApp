@@ -37,7 +37,13 @@ public class Adresse {
 
 	@Column(name = "adresse")
 	private String adresse;
-
+	
+	@Column(name = "codePostal")
+	private String codePostal;
+	
+	@Column(name = "ville")
+	private String ville;
+	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idTypeAdresse")
 	private TypeAdresse typeAdresse;
@@ -102,6 +108,22 @@ public class Adresse {
 
 	public void setMonPro(Professionnel monPro) {
 		this.monPro = monPro;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
 }
