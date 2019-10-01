@@ -129,7 +129,7 @@ public class ApiController {
 
 		return new ResponseEntity<>(
 				new RestApiSuccess(HttpStatus.NO_CONTENT.toString(), "Le patient a été mis à jour avec succés"),
-				HttpStatus.OK);
+				HttpStatus.NO_CONTENT);
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class ApiController {
 
 		return new ResponseEntity<>(
 				new RestApiSuccess(HttpStatus.NO_CONTENT.toString(), "Le professionnel a été mis à jour avec succés"),
-				HttpStatus.OK);
+				HttpStatus.NO_CONTENT);
 	}
 
 	/**
